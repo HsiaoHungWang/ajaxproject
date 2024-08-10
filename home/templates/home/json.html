@@ -2,7 +2,7 @@
 {% block styles %}
 {% endblock %}
 {% block content %}
-<table class="table table-bordered">
+<table id="table1" class="table table-bordered">
    <thead>
     <tr>
         <th>姓名</th>
@@ -10,13 +10,34 @@
         <th>薪水</th>
     </tr>
    </thead>
+   <tbody>
+    
+   </tbody>
 </table>
 {% endblock %}
 {% block scripts %}
 <script>
+    const eleTable = document.querySelector('#table1>tbody')
+
     const emps = [{"name":"Tom","workYears":3,"salary":35000},
                   {"name":"Jack","workYears":5,"salary":40000},
                   {"name":"Mary","workYears":7,"salary":45000}];
+
+    //讀出資料 ES6 > 陣列.方法()
+    const eleEmps = emps.map(emp => {
+        const {name, workYears, salary} = emp
+        return(
+           ` <tr>
+                <td>${name}</td>
+                <td>${workYears}</td>
+                <td>${salary}</td>
+            </tr>
+           `
+        )
+    })
+
+    //顯示資料
+    eleTable.innerHTML = eleEmps.join("")
 
 </script>
 {% endblock %}
