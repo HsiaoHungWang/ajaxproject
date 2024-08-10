@@ -3,4 +3,6 @@ from . import views
 urlpatterns = [
     # http://127.0.0.1:8000/api
     path('', views.index),
+    # http://127.0.0.1:8000/api/cities
+    path('cities/', views.cities),
 ]
