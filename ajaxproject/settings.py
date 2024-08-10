@@ -87,6 +87,14 @@ DATABASES = {
         'PASSWORD': 'P@ssw0rd',
         'HOST': 'localhost',
         'PORT': 3306
+    },
+    'sakila': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'skaila',
+        'USER': 'root',
+        'PASSWORD': 'P@ssw0rd',
+        'HOST': 'localhost',
+        'PORT': 3306
     }
 }
 
