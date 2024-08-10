@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block styles %}
 <style>
-    
+
 </style>
 {% endblock %}
 {% block content %}
@@ -10,6 +10,46 @@
 
 {% block scripts %}
 <script>
+// setTimeout(function () {
+//     console.log('A');
+//     setTimeout(function () {
+//         console.log('AB');
+//         setTimeout(function () {
+//             console.log('ABC');
+//             setTimeout(function () {
+//                 console.log('ABC');
+//                 setTimeout(function () {
+//                     console.log('ABC');
+//                 }, 1000);
+//             }, 1000);
+//         }, 1000);
+//     }, 1000);
+// }, 1000);
+
+//promise 建立
+const promise =  new Promise((resolve, reject)=>{
+   //非同步程式碼放在這裡執行
+   //執行成功產生結果(資料)
+   //執行失敗產生錯誤訊息
+   if(true){
+    resolve('成功....')
+   }else{
+    reject('失敗 Error Message')
+   }
+})
+
+//promise 執行
+promise
+   .then(data=>{
+     console.log(data)
+   })
+   .catch(error=>{
+    console.log(error)
+   })
+   .finally(()=>{
+    console.log('end')
+   })
+
 
 </script>
 {% endblock %}
