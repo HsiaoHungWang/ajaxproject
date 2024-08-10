@@ -26,29 +26,101 @@
 //     }, 1000);
 // }, 1000);
 
-//promise 建立
-const promise =  new Promise((resolve, reject)=>{
-   //非同步程式碼放在這裡執行
-   //執行成功產生結果(資料)
-   //執行失敗產生錯誤訊息
-   if(true){
-    resolve('成功....')
-   }else{
-    reject('失敗 Error Message')
-   }
-})
 
-//promise 執行
-promise
-   .then(data=>{
-     console.log(data)
+const printSomething = (data) =>{
+   const promise = new Promise((resolve, reject)=>{
+       //非同步程式寫在這裡
+       setTimeout(() => {
+          resolve(`${data}1`)
+       }, 1000);
    })
-   .catch(error=>{
-    console.log(error)
-   })
-   .finally(()=>{
-    console.log('end')
-   })
+   return promise
+}
+
+// console.log(printSomething('A')) //promise
+
+// printSomething('A')
+//     .then(data=>{
+//         console.log(data)
+//         return printSomething(`${data}B`)
+//     })
+//     .then(data=>{
+//         console.log(data)
+//         return printSomething(`${data}C`)
+//     })
+//     .then(data=>{
+//         console.log(data)
+//         return printSomething(`${data}D`)
+//     })
+//     .then(data=>{
+//         console.log(data)
+//     })
+
+//promise 解決 callback hell
+//雖然是非同步的程式，但是寫起來可以跟同步一樣 async await
+
+// async function asyncFunc(){
+//     let data = await printSomething('A')
+//     console.log(data)
+//     data = await printSomething(`${data}B`)
+//     console.log(data)
+//     data = await printSomething(`${data}C`)
+//     console.log(data)
+//     data = await printSomething(`${data}D`)
+//     console.log(data)
+//     data = await printSomething(`${data}E`)
+//     console.log(data)
+// }
+// asyncFunc()
+
+//IIFE 立即執行函式  (()=>{ })();
+(async ()=>{   
+    let data = await printSomething('A')
+    console.log(data)
+    data = await printSomething(`${data}B`)
+    console.log(data)
+    data = await printSomething(`${data}C`)
+    console.log(data)
+    data = await printSomething(`${data}D`)
+    console.log(data)
+    data = await printSomething(`${data}E`)
+    console.log(data)
+})();
+
+
+
+
+
+
+
+
+
+
+
+
+//promise 建立
+// const promise =  new Promise((resolve, reject)=>{
+//    //非同步程式碼放在這裡執行
+//    //執行成功產生結果(資料)
+//    //執行失敗產生錯誤訊息
+//    if(true){
+//     resolve('成功....')
+//    }else{
+//     reject('失敗 Error Message')
+//    }
+// })
+
+// //promise 執行
+// promise
+//    .then(data=>{
+//      console.log(data)
+//    })
+//    .catch(error=>{
+//     console.log(error)
+//    })
+//    .finally(()=>{
+//     console.log('end')
+//    })
 
 
 </script>
