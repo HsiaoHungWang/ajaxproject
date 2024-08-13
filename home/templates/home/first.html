@@ -5,7 +5,7 @@
 
 {% block content %}
   <button id="buttonStart" class="btn btn-primary mb-3">Ajax 開始</button>
-
+  <img id="img1" src="{% static 'images/loading.gif' %}" style="display: none;" />
   <div id="div1" class="alert alert-info"></div>
 
   {% endblock %}
@@ -14,14 +14,36 @@
 <script>
     const btnStart = document.querySelector('#buttonStart')
     const divInfo = document.querySelector('#div1')
-    btnStart.addEventListener('click',async ()=>{
+    const imgLoading = document.querySelector('#img1')
 
-        // divInfo.innerHTML = 'Ajax 要開始了'
-        //http://127.0.0.1:8000/api/
-             
+    btnStart.addEventListener('click',async ()=>{
+        //http://127.0.0.1:8000/api/             
         const api = '/api'
         // console.log(fetch(api))
+        //async await
+        try{
+          //顯示執行中的圖示
+          imgLoading.style.display = 'inline'
+          //按鈕停用
+          btnStart.textContent = "執行中..."
+          btnStart.setAttribute('disabled','disabled')
 
+          const response = await fetch(api)    
+          if(!response.ok)  {
+            //有問題會在這裡產生錯誤
+            throw new Error(`${response.status}：${response.statusText}`)
+          }
+          const data = await response.text()
+          divInfo.innerHTML = data
+        }catch(error){
+          divInfo.innerHTML = error.message
+        }finally{
+          //隱藏執行中的圖示
+          imgLoading.style.display = 'none'
+          //按鈕啟用
+          btnStart.textContent = "Ajax 開始"
+          btnStart.removeAttribute('disabled')
+        }
 
         // fetch(api)
         //     .then(response=>{
@@ -40,20 +62,7 @@
         //         divInfo.innerHTML = data
         //     })
 
-        //async await
-        try{
-          const response = await fetch(api)    
-          if(!response.ok)  {
-            //有問題會在這裡產生錯誤
-            throw new Error(`${response.status}：${response.statusText}`)
-          }
-          const data = await response.text()
-          divInfo.innerHTML = data
-        }catch(error){
-          divInfo.innerHTML = error.message
-        }finally{
-          
-        }
+        
         
 
     })
