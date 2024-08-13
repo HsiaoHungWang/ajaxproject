@@ -41,9 +41,20 @@
         //     })
 
         //async await
-        const response = await fetch(api)      
-        const data = await response.text()
-        divInfo.innerHTML = data
+        try{
+          const response = await fetch(api)    
+          if(!response.ok)  {
+            //有問題會在這裡產生錯誤
+            throw new Error(`${response.status}：${response.statusText}`)
+          }
+          const data = await response.text()
+          divInfo.innerHTML = data
+        }catch(error){
+          divInfo.innerHTML = error.message
+        }finally{
+          
+        }
+        
 
     })
 </script>
