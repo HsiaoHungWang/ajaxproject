@@ -11,7 +11,16 @@ def index(reqeust):
 
 def cities(request):
     cities = Address.objects.values('city').distinct()
+    print(cities)
     cities = [item['city'] for item in cities]
+    # item => {'city': '新竹縣'}
     # print(cities)
     return JsonResponse(cities, safe=False)
 
+# /api/districts/金門縣
+# /api/districts/?city=金門縣
+def districts(request, city):
+    districts = Address.objects.filter(city=city).values('site_id').distinct()
+    print(districts)
+    districts = [item['site_id'] for item in districts]
+    return JsonResponse(districts, safe=False)
