@@ -15,23 +15,33 @@
     const btnStart = document.querySelector('#buttonStart')
     const divInfo = document.querySelector('#div1')
     btnStart.addEventListener('click',async ()=>{
-        divInfo.innerHTML = 'Ajax 要開始了'
+
+        // divInfo.innerHTML = 'Ajax 要開始了'
         //http://127.0.0.1:8000/api/
-        // /api
-        //ajax fetch('url')
+             
         const api = '/api'
         // console.log(fetch(api))
+
+
         // fetch(api)
         //     .then(response=>{
         //         console.log(response)
+        //         response.headers.forEach((value, key)=>{
+        //           console.log(`${key} : ${value}`)
+        //         })
+        //         console.log(response.ok)
+        //         console.log(response.status)
+        //         console.log(response.statusText)
+        //         console.log(response.body)
         //         return response.text()
-        //     })
+        //     })            
         //     .then(data=>{
-        //          divInfo.innerHTML = data
+        //         console.log(data)
+        //         divInfo.innerHTML = data
         //     })
 
         //async await
-        const response = await fetch(api)
+        const response = await fetch(api)      
         const data = await response.text()
         divInfo.innerHTML = data
 

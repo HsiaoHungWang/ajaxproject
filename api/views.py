@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from .models import Address
 # Create your views here.
 def index(reqeust):
-    content='Hello Ajax!!'
+    content='Hello Fetch!!'
     # response = HttpResponse(content, 'text/plain')
     # 回傳文字內容
     response = HttpResponse(content, content_type='text/plain; charset=utf-8')
