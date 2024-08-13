@@ -18,9 +18,9 @@ def cities(request):
     return JsonResponse(cities, safe=False)
 
 # /api/districts/金門縣
-# /api/districts/?city=金門縣
-def districts(request, city):
-    districts = Address.objects.filter(city=city).values('site_id').distinct()
+# /api/districts/?city_name=金門縣
+def districts(request, city_name):
+    districts = Address.objects.filter(city=city_name).values('site_id').distinct()
     print(districts)
     districts = [item['site_id'] for item in districts]
     return JsonResponse(districts, safe=False)
