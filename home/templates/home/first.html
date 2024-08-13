@@ -5,6 +5,7 @@
 
 {% block content %}
   <button id="buttonStart" class="btn btn-primary mb-3">Ajax 開始</button>
+  <button id="buttonStop" class="btn btn-primary mb-3">Ajax 停止</button>
   <img id="img1" src="{% static 'images/loading.gif' %}" style="display: none;" />
   <div id="div1" class="alert alert-info"></div>
 
@@ -13,9 +14,16 @@
 
 <script>
     const btnStart = document.querySelector('#buttonStart')
+    const btnStop = document.querySelector('#buttonStop')
     const divInfo = document.querySelector('#div1')
     const imgLoading = document.querySelector('#img1')
-
+    let abortController
+    //讓使用者自行取消非同步的程式
+    btnStop.addEventListener('click',()=>{
+      if(abortController){
+        abortController.abort()
+      }
+    })
     btnStart.addEventListener('click',async ()=>{
         //http://127.0.0.1:8000/api/             
         const api = '/api'
@@ -28,7 +36,17 @@
           btnStart.textContent = "執行中..."
           btnStart.setAttribute('disabled','disabled')
 
-          const response = await fetch(api)    
+          //建立 AbortController 物件
+          abortController = new AbortController()
+          const signal = abortController.signal
+
+          //5秒鐘資料沒有回傳，就取消非同步的程式
+          window.setTimeout(()=>{
+            abortController.abort()
+          },5000)
+
+          const response = await fetch(api, {signal})  
+
           if(!response.ok)  {
             //有問題會在這裡產生錯誤
             throw new Error(`${response.status}：${response.statusText}`)
@@ -36,7 +54,11 @@
           const data = await response.text()
           divInfo.innerHTML = data
         }catch(error){
-          divInfo.innerHTML = error.message
+          let errorMessage = error.message
+          if(error.name === 'AbortError'){
+            errorMessage = '非同步程式取消了'
+          }
+          divInfo.innerHTML = errorMessage
         }finally{
           //隱藏執行中的圖示
           imgLoading.style.display = 'none'
