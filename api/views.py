@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, FileResponse
 import time
-from .models import Address
+from .models import Address, Member
 # Create your views here.
 def index(reqeust):
     time.sleep(5)
@@ -27,7 +27,13 @@ def districts(request, city_name):
     districts = [item['site_id'] for item in districts]
     return JsonResponse(districts, safe=False)
 
-def show(reqeust):
-   img = open('uploads/cat2.jpg', 'rb')
+# /api/show?id=3
+def show(request):
+#    取得 ?id=3 的資料
+   id = request.GET.get('id', 1)
+#   根據 id 讀取 會員資料
+   member = Member.objects.get(user_id=id)
+   file_name = member.user_avator
+   img = open('uploads/' + file_name, 'rb')
 #    img = open('static/images/loading.gif', 'rb')
    return FileResponse(img)

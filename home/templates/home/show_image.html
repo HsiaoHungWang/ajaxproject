@@ -11,7 +11,7 @@
 <script>
  const myImg = document.querySelector('#img1');
  (async ()=>{
-    const response = await fetch('/api/show/')
+    const response = await fetch('/api/show/?id=4')
     const datas = await response.blob()
     myImg.src = URL.createObjectURL(datas)
  })();
