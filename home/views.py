@@ -9,3 +9,5 @@ def first(request):
     return render(request, 'home/first.html',{'title':'使用 fetch()'})
 def address(request):
     return render(request, 'home/address.html',{'title':'取得JSON資料'})
+def show_image(request):
+    return render(request, 'home/show_image.html',{'title':'取得檔案(圖)'})

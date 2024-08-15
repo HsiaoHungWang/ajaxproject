@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block styles %}
+<style>
+
+</style>
+{% endblock %}
+{% block content %}
+ <img id="img1" class="img-thumbnail" />
+{% endblock %}
+{% block scripts %}
+<script>
+ const myImg = document.querySelector('#img1');
+ (async ()=>{
+    const response = await fetch('/api/show/')
+    const datas = await response.blob()
+    myImg.src = URL.createObjectURL(datas)
+ })();
+
+</script>
+{% endblock %}
