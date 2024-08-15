@@ -7,3 +7,5 @@ def json_demo(request):
     return render(request, 'home/json.html',{'title':'JSON 練習'})
 def first(request):
     return render(request, 'home/first.html',{'title':'使用 fetch()'})
+def address(request):
+    return render(request, 'home/address.html',{'title':'取得JSON資料'})
