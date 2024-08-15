@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block styles %}
+<style>
+
+</style>
+{% endblock %}
+{% block content %}
+<form >
+   <div class="mb-3">
+   <label for="InputName" class="form-label">姓名</label>
+   <input type="text" class="form-control" id="InputName">
+   <div id="emailHelp" class="form-text"></div>
+ </div>
+   <div class="mb-3">
+     <label for="InputEmail" class="form-label">電子郵件</label>
+     <input type="email" class="form-control" id="InputEmail" >    
+   </div>
+   <div class="mb-3">
+     <label for="InputAge" class="form-label">年紀</label>
+     <input type="number" class="form-control" id="InputAge">
+   </div>
+  
+   <button type="submit" class="btn btn-primary" id="buttonSubmit">註冊</button>
+ </form>
+ <div id="div1" class="alert alert-info mt-3"></div>
+{% endblock %}
+{% block scripts %}
+<script>
+   const btnSubmit = document.querySelector('#buttonSubmit')
+   const inpName = document.querySelector('#InputName')
+   const inpEmail = document.querySelector('#InputEmail')
+   const inpAge = document.querySelector('#InputAge')
+   const divInfo= document.querySelector('#div1')
+
+   btnSubmit.addEventListener('click',async (event)=>{
+      event.preventDefault()
+      // ajax 
+      //  console.log(ˋ${inpName.value}-${inpEmail.value}-${inpAge.value}ˋ)
+      // console.log(inpName.value)
+      const url = `/api/register/?name=${inpName.value}&email=${inpEmail.value}&age=${inpAge.value}`
+      const response = await fetch(url)
+      const data = await response.text()
+      divInfo.innerHTML = data
+   })
+</script>
+{% endblock %}

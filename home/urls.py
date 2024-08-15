@@ -11,5 +11,7 @@ urlpatterns = [
     # http://127.0.0.1:8000/address
     path('address/', views.address),
     # http://127.0.0.1:8000/image
-    path('image/', views.show_image)
+    path('image/', views.show_image),
+    # http://127.0.0.1:8000/register
+    path('register/', views.register)
     ]

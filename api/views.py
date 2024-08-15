@@ -27,6 +27,9 @@ def districts(request, city_name):
     districts = [item['site_id'] for item in districts]
     return JsonResponse(districts, safe=False)
 
+def roads(request, site_id):
+    pass
+
 # /api/show?id=3
 def show(request):
 #    取得 ?id=3 的資料
@@ -37,3 +40,18 @@ def show(request):
    img = open('uploads/' + file_name, 'rb')
 #    img = open('static/images/loading.gif', 'rb')
    return FileResponse(img)
+
+# /api/register/?name=Tom&email=Tom@company.com&age=30
+def register(request):
+#    取得 ?id=3 的資料
+   name = request.GET.get('name', 'Guest')
+   email = request.GET.get('email', 'Guest@company.com')
+   age = request.GET.get('age', 30)
+
+   content = f"{name} 您好，電子郵件是 {email}，{age} 歲了."
+
+   return HttpResponse(content, 'text/plain')
+
+def check_name(request):
+    # filter(name='Tom').exists()
+    pass
