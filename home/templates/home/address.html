@@ -6,16 +6,15 @@
 {% endblock %}
 {% block content %}
 <select id="selectCity">
-    <option value="a">Item1</option>
-    <option value="b">Item2</option>
-    <option value="c">Item3</option>
-    <option value="d">Item4</option>
-</select>
+    <option value="0">請選擇</optiot>
+   
+    </select>
+<div id="div1"></div>
 {% endblock %}
 {% block scripts %}
 <script>
-    const selCity = document.querySelector('#selectCity');
-
+ const selCity = document.querySelector('#selectCity');
+ const divInfo = document.querySelector('#div1');
  (async ()=>{
     //call api 取得 JSON 資料
    const response = await fetch('/api/cities/')
@@ -28,9 +27,18 @@
     //       `<option value="${city}">${city}</option>`
     //     )
     // })   
-    const optsArray = cities.map(city => `<option value="${city}">${city}</option>`)  
+    const optsArray = cities.map((city,index) => `<option value="${city}">${index}-${city}</option>`)  
     //將資料顯示在網頁上
-    selCity.innerHTML = optsArray.join("")
+    //selCity.innerHTML = optsArray.join("")
+    //BeforeEnd 結束標籤</select>的前面
+    selCity.insertAdjacentHTML('BeforeEnd', optsArray.join(""))
  })();
+
+ selCity.addEventListener('change',()=>{
+    // const idx = selCity.selectedIndex
+    // console.log(idx)
+    // `${selCity.options[idx].text}：${selCity.options[idx].value}`
+    divInfo.innerHTML = selCity.value
+ })
 </script>
 {% endblock %}

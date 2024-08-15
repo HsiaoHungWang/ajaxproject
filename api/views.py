@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, FileResponse
 import time
 from .models import Address
 # Create your views here.
@@ -26,3 +26,8 @@ def districts(request, city_name):
     print(districts)
     districts = [item['site_id'] for item in districts]
     return JsonResponse(districts, safe=False)
+
+def show(reqeust):
+   img = open('uploads/cat2.jpg', 'rb')
+#    img = open('static/images/loading.gif', 'rb')
+   return FileResponse(img)
