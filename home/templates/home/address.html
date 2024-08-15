@@ -5,7 +5,7 @@
 </style>
 {% endblock %}
 {% block content %}
-<select>
+<select id="selectCity">
     <option value="a">Item1</option>
     <option value="b">Item2</option>
     <option value="c">Item3</option>
@@ -14,6 +14,23 @@
 {% endblock %}
 {% block scripts %}
 <script>
+    const selCity = document.querySelector('#selectCity');
 
+ (async ()=>{
+    //call api 取得 JSON 資料
+   const response = await fetch('/api/cities/')
+   const cities = await response.json()
+    //console.log(cities)
+
+    //讀取 JSON 資料  
+    // const optsArray = cities.map((city)=>{
+    //     return(
+    //       `<option value="${city}">${city}</option>`
+    //     )
+    // })   
+    const optsArray = cities.map(city => `<option value="${city}">${city}</option>`)  
+    //將資料顯示在網頁上
+    selCity.innerHTML = optsArray.join("")
+ })();
 </script>
 {% endblock %}

@@ -13,7 +13,7 @@ def index(reqeust):
 
 def cities(request):
     cities = Address.objects.values('city').distinct()
-    print(cities)
+    # print(cities)
     cities = [item['city'] for item in cities]
     # item => {'city': '新竹縣'}
     # print(cities)
