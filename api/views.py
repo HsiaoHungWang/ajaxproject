@@ -52,9 +52,13 @@ def show(request):
 # /api/register/?name=Tom&email=Tom@company.com&age=30
 def register(request):
 #    取得 ?id=3 的資料
-   name = request.GET.get('name', 'Guest')
-   email = request.GET.get('email', 'Guest@company.com')
-   age = request.GET.get('age', 30)
+#    name = request.GET.get('name', 'Guest')
+#    email = request.GET.get('email', 'Guest@company.com')
+#    age = request.GET.get('age', 30)
+# 接收POST傳過來FormData的資料
+   name = request.POST.get('name', 'Guest')
+   email = request.POST.get('email', 'Guest@company.com')
+   age = request.POST.get('age', 30)
 
    content = f"{name} 您好，電子郵件是 {email}，{age} 歲了."
 

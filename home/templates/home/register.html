@@ -5,19 +5,19 @@
 </style>
 {% endblock %}
 {% block content %}
-<form >
+<form id="registerForm">  
    <div class="mb-3">
    <label for="InputName" class="form-label">姓名</label>
-   <input type="text" class="form-control" id="InputName">
-   <div id="emailHelp" class="form-text"></div>
+   <input type="text" class="form-control" id="InputName" name="name">
+   <div id="nameHelp" class="form-text"></div>
  </div>
    <div class="mb-3">
      <label for="InputEmail" class="form-label">電子郵件</label>
-     <input type="email" class="form-control" id="InputEmail" >    
+     <input type="email" class="form-control" id="InputEmail" name="email" >    
    </div>
    <div class="mb-3">
      <label for="InputAge" class="form-label">年紀</label>
-     <input type="number" class="form-control" id="InputAge">
+     <input type="number" class="form-control" id="InputAge" name="age">
    </div>
   
    <button type="submit" class="btn btn-primary" id="buttonSubmit">註冊</button>
@@ -28,19 +28,53 @@
 <script>
    const btnSubmit = document.querySelector('#buttonSubmit')
    const inpName = document.querySelector('#InputName')
-   const inpEmail = document.querySelector('#InputEmail')
-   const inpAge = document.querySelector('#InputAge')
+  //  const inpEmail = document.querySelector('#InputEmail')
+  //  const inpAge = document.querySelector('#InputAge')
    const divInfo= document.querySelector('#div1')
+   const divName = document.querySelector('#nameHelp')
+
+   inpName.addEventListener('blur',()=>{
+    divName.innerHTML = inpName.value
+    //將輸入的姓名傳到api去檢查帳號是否存在
+    //step1 call api fetch('/api/check_name/?name=Tom')
+    //step2 讀取資料
+    //step3 顯示資料
+   })
 
    btnSubmit.addEventListener('click',async (event)=>{
       event.preventDefault()
       // ajax 
       //  console.log(ˋ${inpName.value}-${inpEmail.value}-${inpAge.value}ˋ)
       // console.log(inpName.value)
-      const url = `/api/register/?name=${inpName.value}&email=${inpEmail.value}&age=${inpAge.value}`
-      const response = await fetch(url)
+      // const url = `/api/register/?name=${inpName.value}&email=${inpEmail.value}&age=${inpAge.value}`
+      // const response = await fetch(url)
+      // const data = await response.text()
+      // divInfo.innerHTML = data
+
+      //改用 FormData
+      //將表單輸入的資料塞進FormData物件中
+      const myForm = document.querySelector('#registerForm')
+      const formData = new FormData(myForm)
+
+      //讀取FormData中的資料
+      // for(const pair of formData.entries()){
+      //   console.log(pair[0])
+      //   console.log(pair[1])
+      // }
+
+      //透過fetch()將formData資料傳給API
+      const response = await fetch('/api/register/',{
+        method:'POST',
+        body:formData,
+        headers:{
+          'X-CSRFToken':'{{ csrf_token }}'
+        }
+      })
       const data = await response.text()
-      divInfo.innerHTML = data
+      divInfo.innerHTML = data 
+
+
+
    })
 </script>
 {% endblock %}
