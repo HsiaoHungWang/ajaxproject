@@ -14,5 +14,7 @@ urlpatterns = [
     # http://127.0.0.1:8000/api/show
     path('show/', views.show),
       # http://127.0.0.1:8000/api/register
-    path('register/', views.register)
+    path('register/', views.register),
+      # http://127.0.0.1:8000/api/register1
+    path('register1/', views.register1)
 ]

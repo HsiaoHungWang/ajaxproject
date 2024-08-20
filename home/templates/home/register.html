@@ -24,16 +24,18 @@
     <input class="form-control" type="file" id="formFile" name="avatar">
   </div>
   
-   <button type="submit" class="btn btn-primary" id="buttonSubmit">註冊</button>
+   <button type="submit" class="btn btn-primary" id="buttonSubmit">註冊(FormData)</button>
+   <button type="button" class="btn btn-primary" id="buttonSubmit1">註冊(JSON)</button>
  </form>
  <div id="div1" class="alert alert-info mt-3"></div>
 {% endblock %}
 {% block scripts %}
 <script>
    const btnSubmit = document.querySelector('#buttonSubmit')
+   const btnSubmit1 = document.querySelector('#buttonSubmit1')
    const inpName = document.querySelector('#InputName')
-  //  const inpEmail = document.querySelector('#InputEmail')
-  //  const inpAge = document.querySelector('#InputAge')
+   const inpEmail = document.querySelector('#InputEmail')
+   const inpAge = document.querySelector('#InputAge')
    const divInfo= document.querySelector('#div1')
    const divName = document.querySelector('#nameHelp')
 
@@ -79,6 +81,25 @@
 
 
 
+   })
+
+   btnSubmit1.addEventListener('click',async()=>{
+     let user = {"name": inpName.value, "email": inpEmail.value, "age": inpAge.value}
+    //  console.log(user)
+     user = JSON.stringify(user) //JSON物件轉成字串
+
+     const response = await fetch('/api/register1/',{
+      method:'POST',
+      body:user,
+      headers:{
+        'Content-Type':'application/json',
+        'X-CSRFToken':'{{ csrf_token }}'
+      }
+     })
+
+     const data = await response.text()
+     divInfo.innerHTML = data 
+    
    })
 </script>
 {% endblock %}

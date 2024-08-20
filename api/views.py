@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, FileResponse
 import time
+import json
 from .models import Address, Member
 from django.core.files.storage import FileSystemStorage
 
@@ -77,3 +78,11 @@ def register(request):
 def check_name(request):
     # filter(name='Tom').exists()
     pass
+
+def register1(request):
+    user = json.loads(request.body) # 將JSON字串反序列化成dict物件
+    name = user.get('name')
+    email = user.get('email')
+    age = user.get('age')
+    content = f"{name} 您好，電子郵件是 {email}，{age} 歲了. "
+    return HttpResponse(content, 'text/plain')
