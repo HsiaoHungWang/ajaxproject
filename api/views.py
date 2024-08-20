@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, FileResponse
 import time
 from .models import Address, Member
+from django.core.files.storage import FileSystemStorage
+
 # Create your views here.
 def index(reqeust):
     time.sleep(5)
@@ -51,6 +53,7 @@ def show(request):
 
 # /api/register/?name=Tom&email=Tom@company.com&age=30
 def register(request):
+#    接收GET傳過來的資料
 #    取得 ?id=3 的資料
 #    name = request.GET.get('name', 'Guest')
 #    email = request.GET.get('email', 'Guest@company.com')
@@ -60,7 +63,14 @@ def register(request):
    email = request.POST.get('email', 'Guest@company.com')
    age = request.POST.get('age', 30)
 
-   content = f"{name} 您好，電子郵件是 {email}，{age} 歲了."
+#  接收傳過來的檔案
+   uploaded_file = request.FILES.get('avatar')
+#    把檔案寫進uploads資料夾
+   if uploaded_file:
+       fs = FileSystemStorage()
+       file_name = fs.save(uploaded_file.name, uploaded_file)
+
+   content = f"{name} 您好，電子郵件是 {email}，{age} 歲了. {file_name}"
 
    return HttpResponse(content, 'text/plain')
 
