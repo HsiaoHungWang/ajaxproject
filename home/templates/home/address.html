@@ -51,7 +51,7 @@
     const districts = await response.json()
 
     //step2 讀取 JSON 資料  
-    const optsArray = districts.map((item)=>`<option value="${item}">${item}</option>`)
+    const optsArray = districts.map((item)=>`<option value="${item}">${item.substr(3,3)}</option>`)
    //  console.log(optsArray)
    //  console.log(optsArray.join(""))   
 
