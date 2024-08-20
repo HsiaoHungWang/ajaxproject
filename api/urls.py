@@ -9,6 +9,8 @@ urlpatterns = [
     # path('districts/', views.districts),
     # http://127.0.0.1:8000/api/districts/金門縣
     path('districts/<str:city_name>', views.districts),
+    # http://127.0.0.1:8000/api/roads/新北市板橋區
+    path('roads/<str:district>', views.roads),
     # http://127.0.0.1:8000/api/show
     path('show/', views.show),
       # http://127.0.0.1:8000/api/register

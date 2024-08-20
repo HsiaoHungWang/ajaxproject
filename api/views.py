@@ -19,16 +19,24 @@ def cities(request):
     # print(cities)
     return JsonResponse(cities, safe=False)
 
-# /api/districts/金門縣
-# /api/districts/?city_name=金門縣
-def districts(request, city_name):
+# 傳資料進districts function GET 有兩種做法
+# 1. GET /api/districts/金門縣  => urls.py 路由參數 path('districts/<str:city_name>', views.districts),
+# 2. GET /api/districts/?city_name=金門縣&key=value
+def districts(request, city_name):  # 1
+    # 接收資料也有兩種做法
+    # 2 request.GET.get('key')
     districts = Address.objects.filter(city=city_name).values('site_id').distinct()
-    print(districts)
+    # print(districts)
     districts = [item['site_id'] for item in districts]
     return JsonResponse(districts, safe=False)
 
-def roads(request, site_id):
-    pass
+# 根據鄉鎮區的名稱帶出路名
+def roads(request, district):
+    # 根據 district 篩選路名
+    roads = Address.objects.filter(site_id = district).values('road')
+    roads = [item['road']  for item in roads]
+
+    return JsonResponse(list(roads), safe=False)
 
 # /api/show?id=3
 def show(request):
